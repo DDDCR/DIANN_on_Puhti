@@ -136,6 +136,8 @@ Here are some of the most common flags you might use:
 | `--cut` | `K*,R*` | Defines the enzyme cleavage rule. The example is for Trypsin, which cuts after Lysine (K) and Arginine (R). |
 -----
 
+**If confused, ask help from AI(ChatGPT, Gemini), but remember double check the parameter is really exist on DIAN-NN Github page**
+
 ## What Happens Next?
 
 After you run the command, the script will print the Job IDs for each of the four steps. The entire workflow will now run automatically.
