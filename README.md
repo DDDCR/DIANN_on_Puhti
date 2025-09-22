@@ -45,9 +45,21 @@ The entire system is organized to keep shared files separate from your individua
 ```
 DIA-NN/
 ├── 01_containers/         (Contains the DIA-NN .sif file)
-├── 02_shared_scripts/     (Contains the master scripts)
-├── 03_shared_resources/   (Contains shared FASTA files, etc.)
+├── 02_scripts/            (Contains the master scripts)
+├── 03_resources/          (Contains shared lib files, etc.)
 └── projects/              (This is where you'll create your project folders)
+     └── userA/
+           └── projectX/
+                ├── raw_data/
+                │   ├── sample1.d
+                │   └── sample2.d
+                ├── config.sh
+                └── output/
+                        ├── logs/
+                        ├── lib/
+                        ├── quant_step1/
+                        ├── quant_step3/
+                        └── report/
 ```
 -----
 
@@ -65,13 +77,15 @@ cd /scratch/project_2000752/DIA-NN/projects/
 mkdir -p mouse_brain/config mouse_brain/raw_data mouse_brain/output
 ```
 
-### Step 2: Prepare Your Raw Data
+### Step 2: Prepare Your Data
 
 Upload all your raw data files (`.d` files) into your project's `raw_data` directory.
 
+Also remember upload FASTA files(.fasta)
+
 ### Step 3: Create and Edit Your `config.sh` File
 
-This is the most important step. It tells the workflow where your files are and what DIA-NN settings to use.
+This is the most **important** step. It tells the workflow where your files are and what DIA-NN settings to use.
 
 1.  Copy the configuration template into your project's `config` folder.
 
@@ -104,7 +118,7 @@ You're now ready to launch the entire workflow. Run the master submission script
 
 After you run the command, the script will print the Job IDs for each of the four steps. The entire workflow will now run automatically.
 
-  * **To monitor your jobs:** Use the `squeue --me` command.
+  * **To monitor your jobs:** Use the `squeue --me` command or check on puhti website -> active jobs.
   * **To check your results:** Once the final job is complete, your final report files will be located in your project's `output/report/` directory.
   * **To check for errors:** All log files from the run are saved in `output/logs/`.
 
@@ -133,12 +147,5 @@ Here are some of the most common flags you might use:
 | `--cut` | `K*,R*` | Defines the enzyme cleavage rule. The example is for Trypsin, which cuts after Lysine (K) and Arginine (R). |
 -----
 
-**If confused, ask help from AI(ChatGPT, Gemini), but remember double check the parameter is really exist on DIAN-NN Github page**
+**If confused and want to add more customized parameters, AI(ChatGPT, Gemini) is very helpful, but remember double check the parameter is really exist on DIAN-NN Github page**
 
-## What Happens Next?
-
-After you run the command, the script will print the Job IDs for each of the four steps. The entire workflow will now run automatically.
-
-  * **To monitor your jobs:** Use the `squeue -u your_username` command.
-  * **To check your results:** Once the final job is complete, your final report files will be located in your project's `output/report/` directory.
-  * **To check for errors:** All log files from the run are saved in `output/logs/`.
