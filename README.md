@@ -2,6 +2,8 @@
 
 This guide explains how to use our automated workflow to run DIA-NN on a large number of samples in parallel on the Puhti.csc.fi cluster.
 
+The idea is based on Brett S. Phinney's Youtube video [Running DIA-NN on an HPC cluster](https://youtu.be/75Gk6uQclc8?si=zZqzikGoCqnogNtn)
+
 -----
 
 ## Overview
@@ -65,12 +67,7 @@ mkdir -p mouse_brain/config mouse_brain/raw_data mouse_brain/output
 
 ### Step 2: Prepare Your Raw Data
 
-Copy all your raw data files (`.d` files) into your project's `raw_data` directory.
-
-```bash
-# Example
-cp /path/to/your/original/data/*.d /scratch/project_2000752/DIA-NN/projects/mouse_brain/raw_data/
-```
+Upload all your raw data files (`.d` files) into your project's `raw_data` directory.
 
 ### Step 3: Create and Edit Your `config.sh` File
 
@@ -79,10 +76,10 @@ This is the most important step. It tells the workflow where your files are and 
 1.  Copy the configuration template into your project's `config` folder.
 
     ```bash
-    cp /path/to/template/config.sh /scratch/project_2000752/DIA-NN/projects/mouse_brain/config/
+    cp /scratch/project_2000752/DIA-NN/04_projects/dichengr/test/example_config.sh /scratch/project_2000752/DIA-NN/projects/your/project/
     ```
 
-2.  Open your new `config.sh` file and edit the paths and parameters.
+2.  Open your new `config.sh` file and edit the paths and parameters(Pay close attention to the variables marked with "CHANGE THIS").
 
       * `DATA_DIR`: Full path to your project's `raw_data` folder.
       * `OUTPUT_DIR`: Full path to your project's `output` folder.
