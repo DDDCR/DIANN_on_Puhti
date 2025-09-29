@@ -26,11 +26,5 @@ CONTAINER_SIF="/scratch/project_2000752/DIA-NN/01_containers/diann-2.2.0.sif"
 # --- DIA-NN PARAMETERS ---
 # (Customize the flags passed to DIA-NN)
 
-#CUSTOMIZE THIS: Parameters for the search steps (1 and 3).
-DIANN_SEARCH_PARAMS="--missed-cleavages 1 --cut K*,R* --met-excision --fixed-mod UniMod:4,57.021464,C --var-mod UniMod:21,79.966331,STY --var-mods 3 --mass-acc 15 --mass-acc-ms1 15 --window 0 --qvalue 0.01 --rt-profiling"
-
-# Parameters for the library generation step (2).
-DIANN_LIBGEN_PARAMS="--gen-spec-lib --use-quant"
-
-# Parameters for the final reporting step (4).
-DIANN_REPORT_PARAMS="--matrices"
+#CUSTOMIZE THIS: Parameters.
+DIANN_PARAMS="--missed-cleavages 1 --cut K*,R* --met-excision --fixed-mod UniMod:4,57.021464,C --var-mod UniMod:21,79.966331,STY --var-mods 3 --mass-acc 15 --mass-acc-ms1 15 --window 0 --qvalue 0.01 --rt-profiling"
