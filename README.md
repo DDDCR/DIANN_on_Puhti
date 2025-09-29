@@ -72,7 +72,7 @@ Follow these four steps for each new analysis you want to run.
 
 ### Step 1: Set Up Your Project Folder
 
-First, create a new directory for your project inside the `04_projects` folder. It's best practice to also create your own directory with your name and current project. Also create `raw_data`, and `output` subdirectories would be great.
+First, log into [puhti.csc.fi](https://www.puhti.csc.fi/public/), The main workflow is in /scratch/project_2000752/DIA-NN. Create a new directory for your project inside the `04_projects` folder. It's best practice to also create your own directory with your name and current project. Also create `raw_data`, and `output` subdirectories would be great.
 
 ```bash
 # Example for a new project called 'mouse_brain'
