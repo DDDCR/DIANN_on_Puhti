@@ -47,19 +47,22 @@ DIA-NN/
 ├── 01_containers/         (Contains the DIA-NN .sif file)
 ├── 02_scripts/            (Contains the master scripts)
 ├── 03_resources/          (Contains shared lib files, etc.)
-└── projects/              (This is where you'll create your project folders)
+│    └── lib/
+│         └── .speclib/
+└── 04_projects/              (This is where you'll create your project folders)
      └── userA/
            └── projectX/
                 ├── raw_data/
                 │   ├── sample1.d
                 │   └── sample2.d
                 ├── config.sh
+                ├── .fasta
                 └── output/
                         ├── logs/
-                        ├── lib/
-                        ├── quant_step1/
-                        ├── quant_step3/
-                        └── report/
+                        ├── step1_quant/
+                        ├── step2_lib/
+                        ├── step3_quant/
+                        └── step4_report/
 ```
 -----
 
@@ -69,19 +72,48 @@ Follow these four steps for each new analysis you want to run.
 
 ### Step 1: Set Up Your Project Folder
 
-First, create a new directory for your project inside the `projects` folder. It's best practice to also create `config`, `raw_data`, and `output` subdirectories.
+First, create a new directory for your project inside the `04_projects` folder. It's best practice to also create your own directory with your name and current project. Also create `raw_data`, and `output` subdirectories would be great.
 
 ```bash
 # Example for a new project called 'mouse_brain'
-cd /scratch/project_2000752/DIA-NN/projects/
+cd /scratch/project_2000752/DIA-NN/04_projects/userx/projectx
 mkdir -p mouse_brain/config mouse_brain/raw_data mouse_brain/output
 ```
 
 ### Step 2: Prepare Your Data
 
-Upload all your raw data files (`.d` files) into your project's `raw_data` directory.
+Before running the workflow, you need to make sure your input files are in the correct locations on Puhti.
 
-Also remember upload FASTA files(.fasta)
+- Raw Data (.d files)
+
+Place all the raw mass spectrometry data files for your analysis into your project's 'raw_data' directory.
+     
+Destination: 04_projects/your_project_name/raw_data/
+
+- FASTA Files (.fasta)
+
+Place FASTA file for your analysis into your project's directory.
+     
+Recommended Destination: 04_projects/your_project_name/
+
+- Spectral Libraries (.speclib)
+
+For commonly used proteomes (like human or mouse), first check if a suitable spectral libraries in the shared libraries folder. If not, upload yours there.
+     
+Destination: 03_resources/lib/
+
+**The Puhti web interface has a 10 GB upload limit. For larger files, like a big spectral library, you should use Allas.csc.fi, CSC's object storage service.**
+
+1. First, upload your large file to Allas from your local computer.
+
+2. Then, on Puhti, use the following commands to download it to the cluster:
+
+```bash
+module load allas
+allas-conf
+a-get your_object_name  # downloads into current dir
+```
+
 
 ### Step 3: Create and Edit Your `config.sh` File
 
@@ -99,7 +131,7 @@ This is the most **important** step. It tells the workflow where your files are 
       * `OUTPUT_DIR`: Full path to your project's `output` folder.
       * `LIB_FILE`: Full path to the main spectral library you want to use.
       * `FASTA_FILE`: Full path to the FASTA file for your search.
-      * `DIANN_SEARCH_PARAMS`: A single line containing all the command-line flags for your DIA-NN search (check Parameter Reference).
+      * `DIANN_PARAMS`: A single line containing all the command-line flags for your DIA-NN search (check Parameter Reference).
 
     **Note: Cluster resource settings (CPUs, memory, time) are pre-set in the master script for consistency.**
 
@@ -111,7 +143,7 @@ You're now ready to launch the entire workflow. Run the master submission script
 # The path to the master script will not change.
 # The only thing that changes for each project is the path to its config file.
 
-/scratch/project_2000752/DIA-NN/02_shared_scripts/submit_diann_workflow.sh /scratch/project_2000752/DIA-NN/projects/mouse_brain/config/config.sh
+/scratch/project_2000752/DIA-NN/02_scripts/diann_runner.sh /scratch/project_2000752/DIA-NN/04_projects/userx/projects/config.sh
 ```
 
 ## What Happens Next?
